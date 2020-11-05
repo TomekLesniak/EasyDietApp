@@ -1,4 +1,7 @@
+import 'package:EasyDietApp/providers/dishes.dart';
+import 'package:EasyDietApp/screens/category_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // screens
 import 'screens/home_screen.dart';
@@ -11,13 +14,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => Dishes()),
+      ],
+          child: MaterialApp(
+        title: 'Easy Diet',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: CategoryScreen(),
       ),
-      home: HomeScreen(),
     );
   }
 }
