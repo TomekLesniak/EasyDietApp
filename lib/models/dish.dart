@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/meal_category.dart';
+import 'meal_category.dart';
 
-class Dish {
+class Dish with ChangeNotifier{
   String id;
   String name;
   MealCategory category;

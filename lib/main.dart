@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: CategoryScreen(),
+        home: HomeScreen(),
+        routes: {
+          '/category-screen': (ctx) => CategoryScreen(),
+        },
       ),
     );
   }
