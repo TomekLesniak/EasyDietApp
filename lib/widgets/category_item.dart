@@ -17,7 +17,7 @@ class CategoryItem extends StatelessWidget {
         width: 300,
         height: 100,
         decoration: BoxDecoration(
-            color: Colors.lime,
+            color: Theme.of(context).accentColor,
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             )),

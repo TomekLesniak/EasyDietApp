@@ -21,8 +21,9 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
         title: 'Easy Diet',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.brown,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          accentColor: Colors.yellow,
         ),
         home: HomeScreen(),
         routes: {

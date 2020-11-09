@@ -8,12 +8,13 @@ class Dishes with ChangeNotifier {
   List<Dish> _dishes = [];
 
   List<Dish> getDishes(String categoryName) {
+    categoryName = categoryName.toLowerCase();
     MealCategory selectedCategory;
     switch(categoryName) {
       case 'breakfest':
         selectedCategory = MealCategory.breakfast;
         break;
-      case 'secondBreakfest':
+      case 'secondbreakfest':
         selectedCategory = MealCategory.secondBreakfest;
         break;
       case 'dinner':
@@ -48,7 +49,8 @@ class Dishes with ChangeNotifier {
           proteins: 30,
           name: 'breakfest',
           ingredients: ['Bread', 'test', 'another_one'],
-          category: MealCategory.breakfast),
+          category: MealCategory.breakfast,
+          imageUrl: 'https://miro.medium.com/max/10000/0*wZAcNrIWFFjuJA78'),
       Dish(
           id: 'd1',
           calories: 400,
@@ -57,7 +59,8 @@ class Dishes with ChangeNotifier {
           proteins: 30,
           name: 'Dinner',
           ingredients: ['Rice', 'rice', 'another_one'],
-          category: MealCategory.dinner),
+          category: MealCategory.dinner,
+          imageUrl: 'https://miro.medium.com/max/10000/0*wZAcNrIWFFjuJA78'),
     ];
     notifyListeners();
     }

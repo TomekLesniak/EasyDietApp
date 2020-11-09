@@ -11,6 +11,7 @@ class Dish with ChangeNotifier{
   int fat;
   int carbohydrates;
   List<String> ingredients;
+  String imageUrl;
 
   Dish(
       {@required this.id,
@@ -20,5 +21,6 @@ class Dish with ChangeNotifier{
       @required this.carbohydrates,
       @required this.fat,
       @required this.ingredients,
-      @required this.proteins});
+      @required this.proteins,
+      @required this.imageUrl});
 }

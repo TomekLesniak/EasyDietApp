@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/dishes.dart';
+import '../widgets/dish_item.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
@@ -33,6 +34,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     final categoryName = ModalRoute.of(context).settings.arguments as String;
     final dishesData = Provider.of<Dishes>(context, listen: false);
     final dishes = dishesData.getDishes(categoryName);
+    print(dishes.length);
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryName),
@@ -41,7 +43,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ? CircularProgressIndicator()
           : ListView.builder(
               itemCount: dishes.length,
-              itemBuilder: (ctx, index) => Text(dishes[index].name),
+              itemBuilder: (ctx, index) => DishItem(dishes[index].name, dishes[index].imageUrl),
             ),
     );
   }
