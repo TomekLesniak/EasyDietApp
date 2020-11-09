@@ -5,19 +5,41 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Dishes with ChangeNotifier {
-  List<Dish> dishes = [];
+  List<Dish> _dishes = [];
+
+  List<Dish> getDishes(String categoryName) {
+    MealCategory selectedCategory;
+    switch(categoryName) {
+      case 'breakfest':
+        selectedCategory = MealCategory.breakfast;
+        break;
+      case 'secondBreakfest':
+        selectedCategory = MealCategory.secondBreakfest;
+        break;
+      case 'dinner':
+        selectedCategory = MealCategory.dinner;
+        break;
+      case 'supper':
+        selectedCategory = MealCategory.supper;
+        break;
+    }
+    return _dishes.where((dish) => dish.category == selectedCategory).toList();
+  }
 
   Future<void> fetchAndSetDishes() async {
     var url = 'https://easydiet-9b265.firebaseio.com/dishes.json';
-    if (dishes.isEmpty) {
+
+    if(_dishes.isEmpty) {
       final response = await http.post(url,
           body: json.encode({
             'name': 'breakfest',
             'ingredients': ['Bread', 'test']
           }));
+
+    
     print(response.body);
-    }
-    dishes = [
+    
+    _dishes = [
       Dish(
           id: 'd1',
           calories: 400,
@@ -37,6 +59,7 @@ class Dishes with ChangeNotifier {
           ingredients: ['Rice', 'rice', 'another_one'],
           category: MealCategory.dinner),
     ];
-    return;
+    notifyListeners();
+    }
   }
 }
