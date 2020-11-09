@@ -5,6 +5,8 @@ import '../providers/dishes.dart';
 import '../widgets/dish_item.dart';
 
 class CategoryScreen extends StatefulWidget {
+  static const routeName = '/category-screen';
+
   @override
   _CategoryScreenState createState() => _CategoryScreenState();
 }
@@ -17,14 +19,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
-        _isLoading = true;
-        Provider.of<Dishes>(context, listen: false)
-            .fetchAndSetDishes()
-            .then((_) {
-              setState(() {
-              _isLoading = false;
-              });
-            } );
+      _isLoading = true;
+      Provider.of<Dishes>(context, listen: false).fetchAndSetDishes().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     }
     _isInit = false;
   }
@@ -39,11 +39,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
       appBar: AppBar(
         title: Text(categoryName),
       ),
+      backgroundColor: Colors.blueGrey,
       body: _isLoading
-          ? CircularProgressIndicator()
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
           : ListView.builder(
               itemCount: dishes.length,
-              itemBuilder: (ctx, index) => DishItem(dishes[index].name, dishes[index].imageUrl),
+              itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
+                child: DishItem(),
+                value: dishes[index],
+              ),
             ),
     );
   }

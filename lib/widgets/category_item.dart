@@ -1,3 +1,4 @@
+import 'package:EasyDietApp/screens/category_screen.dart';
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -10,7 +11,7 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed('/category-screen', arguments: categoryName);
+        Navigator.of(context).pushNamed(CategoryScreen.routeName, arguments: categoryName);
       },
       child: Container(
         margin: EdgeInsets.all(20),
@@ -24,8 +25,8 @@ class CategoryItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon),
-            Text(categoryName),
+            Icon(icon, color: Colors.blue,),
+            Text(categoryName, style: Theme.of(context).textTheme.headline6,),
           ],
         ),
       ),

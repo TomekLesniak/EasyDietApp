@@ -21,13 +21,14 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
         title: 'Easy Diet',
         theme: ThemeData(
-          primarySwatch: Colors.brown,
+          primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          accentColor: Colors.yellow,
+          accentColor: Colors.white,
+          textTheme: TextTheme(headline6: TextStyle(color: Colors.blue, fontSize: 16, fontWeight: FontWeight.bold))
         ),
         home: HomeScreen(),
         routes: {
-          '/category-screen': (ctx) => CategoryScreen(),
+          CategoryScreen.routeName: (ctx) => CategoryScreen(),
         },
       ),
     );

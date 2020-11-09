@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('DishesScreen'),
       ),
+      backgroundColor: Colors.blueGrey,
       body: Container(
         width: double.infinity,
         child: SingleChildScrollView(
