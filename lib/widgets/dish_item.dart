@@ -1,12 +1,13 @@
 import 'package:EasyDietApp/models/dish.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../screens/detail_screen.dart';
 
 class DishItem extends StatelessWidget {
 
 
-  void openDetailedPage() {
-    print('opening detailed page for ');
+  void openDetailedPage(BuildContext ctx, Dish dish) {
+    Navigator.of(ctx).pushNamed(DetailScreen.routeName, arguments: dish);
   }
 
   @override
@@ -20,14 +21,18 @@ class DishItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             GestureDetector(
-              onTap: openDetailedPage,
+              onTap: () => openDetailedPage(context, dish),
               child: Container(
                 height: 200,
                 width: double.infinity,
                 child: Stack(
                   children: [
                     FittedBox(
-                      child: Image.network(dish.imageUrl),
+                      // child: Image.network(dish.imageUrl),
+                      child: Hero(
+                        child: Image.network(dish.imageUrl),
+                        tag: dish.id,
+                      ),
                       fit: BoxFit.cover,
                     ),
                     Positioned(
@@ -60,8 +65,8 @@ class DishItem extends StatelessWidget {
                 size: 46,
               ),
               title: Text(dish.name),
-              trailing: Text('Calories: ${dish.name}'),
-              onTap: openDetailedPage,
+              trailing: Text('Calories: ${dish.calories}'),
+              onTap: () => openDetailedPage(context, dish),
             )
           ],
         ),

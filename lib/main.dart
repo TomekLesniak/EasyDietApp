@@ -1,5 +1,7 @@
+import 'package:EasyDietApp/models/dish.dart';
 import 'package:EasyDietApp/providers/dishes.dart';
 import 'package:EasyDietApp/screens/category_screen.dart';
+import 'package:EasyDietApp/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
         home: HomeScreen(),
         routes: {
           CategoryScreen.routeName: (ctx) => CategoryScreen(),
+          DetailScreen.routeName: (ctx) => DetailScreen(),
         },
       ),
     );
