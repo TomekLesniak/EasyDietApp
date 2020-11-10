@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Ingredient extends StatelessWidget {
+class DetailsText extends StatelessWidget {
   final String ingredient;
 
-  Ingredient(this.ingredient);
+  DetailsText(this.ingredient);
 
   @override
   Widget build(BuildContext context) {
