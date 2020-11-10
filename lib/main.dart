@@ -1,12 +1,12 @@
-import 'package:EasyDietApp/models/dish.dart';
 import 'package:EasyDietApp/providers/dishes.dart';
-import 'package:EasyDietApp/screens/category_screen.dart';
-import 'package:EasyDietApp/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // screens
 import 'screens/home_screen.dart';
+import 'screens/add_dish_screen.dart';
+import 'screens/detail_screen.dart';
+import 'screens/category_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         routes: {
           CategoryScreen.routeName: (ctx) => CategoryScreen(),
           DetailScreen.routeName: (ctx) => DetailScreen(),
+          AddDishScreen.routeName: (ctx) => AddDishScreen(),
         },
       ),
     );
