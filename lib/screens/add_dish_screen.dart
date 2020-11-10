@@ -20,6 +20,29 @@ class _AddDishScreenState extends State<AddDishScreen> {
     print(_radioValue);
   }
 
+  void _saveForm() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+    }
+  }
+
+  String _nameValidator(String value) {
+    if (value.length < 3) return 'Must be at least 4 characters';
+    return null;
+  }
+
+  String _macroValidator(String value) {
+    var number = 0;
+    try {
+      number = int.parse(value);
+    } catch (error) {
+      return 'Not a number';
+    }
+    if (number <= 0 || number >= 5000) return 'Invalid value';
+
+    return null;
+  }
+
   Widget formText(BuildContext context, String text) {
     return Text(text, style: Theme.of(context).textTheme.headline6);
   }
@@ -42,6 +65,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                 child: Column(
                   children: [
                     TextFormField(
+                      validator: (value) => _nameValidator(value),
                       decoration: InputDecoration(
                           labelText: 'Name',
                           labelStyle: Theme.of(context).textTheme.headline6),
@@ -82,6 +106,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                       children: [
                         Flexible(
                           child: TextFormField(
+                            validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: 'Calories',
@@ -92,6 +117,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                         SizedBox(width: 30),
                         Flexible(
                           child: TextFormField(
+                            validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: 'Carbohydrates',
@@ -105,6 +131,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                       children: [
                         Flexible(
                           child: TextFormField(
+                            validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: 'Fat',
@@ -115,6 +142,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                         SizedBox(width: 30),
                         Flexible(
                           child: TextFormField(
+                            validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: 'Proteins',
@@ -142,7 +170,8 @@ class _AddDishScreenState extends State<AddDishScreen> {
                         ),
                         Flexible(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding:
+                                const EdgeInsets.only(bottom: 30, left: 25),
                             child: TextFormField(
                               decoration: InputDecoration(
                                   labelText: 'Url',
@@ -153,6 +182,20 @@ class _AddDishScreenState extends State<AddDishScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    RaisedButton.icon(
+                      onPressed: _saveForm,
+                      icon: Icon(Icons.add, color: Colors.white),
+                      label: Text(
+                        'Add',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      color: Theme.of(context).primaryColor,
+                    )
                   ],
                 ),
               ),
