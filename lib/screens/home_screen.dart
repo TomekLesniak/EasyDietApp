@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('DishesScreen'),
+          title: const Text('Choose a category'),
         ),
         backgroundColor: Colors.blueGrey,
         body: Container(

@@ -1,6 +1,9 @@
 import 'package:EasyDietApp/models/meal_category.dart';
+import 'package:EasyDietApp/providers/dishes.dart';
 import 'package:EasyDietApp/widgets/form_radio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:enum_to_string/enum_to_string.dart' as enumConverter;
 
 class AddDishScreen extends StatefulWidget {
   static const routeName = '/add-dish-screen';
@@ -13,16 +16,27 @@ class _AddDishScreenState extends State<AddDishScreen> {
   final _formKey = GlobalKey<FormState>();
   var _radioValue = MealCategory.breakfast;
 
+  var _dishData = {
+    'name': '',
+    'category': '${MealCategory.breakfast}',
+    'calories': '',
+    'carbohydrates': '',
+    'fat': '',
+    'proteins': '',
+    'url': '',
+  };
+
   void _handleRadioValueChange(MealCategory value) {
     setState(() {
       _radioValue = value;
     });
-    print(_radioValue);
   }
 
   void _saveForm() {
     if (_formKey.currentState.validate()) {
+      _dishData['category'] = enumConverter.EnumToString.convertToString(_radioValue);
       _formKey.currentState.save();
+      Provider.of<Dishes>(context, listen: false).addDish(_dishData);
     }
   }
 
@@ -65,6 +79,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                 child: Column(
                   children: [
                     TextFormField(
+                      onSaved: (value) => _dishData['name'] = value,
                       validator: (value) => _nameValidator(value),
                       decoration: InputDecoration(
                           labelText: 'Name',
@@ -106,6 +121,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                       children: [
                         Flexible(
                           child: TextFormField(
+                            onSaved: (value) => _dishData['calories'] = value,
                             validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -117,6 +133,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                         SizedBox(width: 30),
                         Flexible(
                           child: TextFormField(
+                            onSaved: (value) => _dishData['carbohydrates'] = value,
                             validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -131,6 +148,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                       children: [
                         Flexible(
                           child: TextFormField(
+                            onSaved: (value) => _dishData['fat'] = value,
                             validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -142,6 +160,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                         SizedBox(width: 30),
                         Flexible(
                           child: TextFormField(
+                            onSaved: (value) => _dishData['proteins'] = value,
                             validator: _macroValidator,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -173,6 +192,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
                             padding:
                                 const EdgeInsets.only(bottom: 30, left: 25),
                             child: TextFormField(
+                              onSaved: (value) => _dishData['url'] = value,
                               decoration: InputDecoration(
                                   labelText: 'Url',
                                   labelStyle:

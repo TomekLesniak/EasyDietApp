@@ -1,7 +1,9 @@
+import 'package:EasyDietApp/helpers/db_helper.dart';
 import 'package:EasyDietApp/models/meal_category.dart';
 import 'package:flutter/material.dart';
 import '../models/dish.dart';
 import 'package:http/http.dart' as http;
+import 'package:enum_to_string/enum_to_string.dart' as enumConverter;
 import 'dart:convert';
 
 class Dishes with ChangeNotifier {
@@ -18,7 +20,7 @@ class Dishes with ChangeNotifier {
       case 'breakfest':
         return MealCategory.breakfast;
         break;
-      case 'secondbreakfest':
+      case 'second breakfest':
         return MealCategory.secondBreakfest;
         break;
       case 'dinner':
@@ -32,18 +34,30 @@ class Dishes with ChangeNotifier {
     }
   }
 
+  Future<void> addDish(Map<String, Object> dish) async {
+    var encodedDish = _encodeToJson(dish);
+    final response = await DbHelper.instance().addDish(encodedDish);
+    final decodedResponse = json.decode(response.body);
+    _dishes.add(Dish(
+        id: decodedResponse['name'],
+        proteins: int.parse(dish['proteins']),
+        calories: int.parse(dish['calories']),
+        carbohydrates: int.parse(dish['carbohydrates']),
+        fat: int.parse(dish['fat']),
+        name: dish['name'],
+        imageUrl: dish['url'],
+        // category: MealCategory.breakfast,
+        category: enumConverter.EnumToString.fromString(MealCategory.values, dish['category']),
+        ingredients: ['a', 'b', 'c']));
+    notifyListeners();
+  }
+
+  String _encodeToJson(Map<String, Object> data) {
+    return json.encode(data);
+  }
+
   Future<void> fetchAndSetDishes() async {
-    var url = 'https://easydiet-9b265.firebaseio.com/dishes.json';
-
     if (_dishes.isEmpty) {
-      final response = await http.post(url,
-          body: json.encode({
-            'name': 'breakfest',
-            'ingredients': ['Bread', 'test']
-          }));
-
-      print(response.body);
-
       _dishes = [
         Dish(
             id: 'd1',
@@ -99,6 +113,4 @@ class Dishes with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  
 }
