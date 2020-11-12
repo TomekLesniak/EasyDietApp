@@ -38,17 +38,21 @@ class Dishes with ChangeNotifier {
     var encodedDish = _encodeToJson(dish);
     final response = await DbHelper.instance().addDish(encodedDish);
     final decodedResponse = json.decode(response.body);
+    _addDishLocally(decodedResponse['name'], dish);
+  }
+
+  void _addDishLocally(String dishId, Map<String, Object> dish) {
     _dishes.add(Dish(
-        id: decodedResponse['name'],
+        id: dishId,
         proteins: int.parse(dish['proteins']),
         calories: int.parse(dish['calories']),
         carbohydrates: int.parse(dish['carbohydrates']),
         fat: int.parse(dish['fat']),
         name: dish['name'],
         imageUrl: dish['url'],
-        // category: MealCategory.breakfast,
         category: enumConverter.EnumToString.fromString(MealCategory.values, dish['category']),
         ingredients: ['a', 'b', 'c']));
+
     notifyListeners();
   }
 
